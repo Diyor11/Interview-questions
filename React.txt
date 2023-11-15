@@ -22,6 +22,7 @@ useEffect(() => {
 }, [])
 
 4 shouldComponentUpdate nima qanday vazifani bajaradi ?
+Javob: state yoki tepadan keladigan props o'zgarganda componnet render yoki render bo'lbasiligini xal qiladi
 
 shouldComponentUpdate(nextProps, nextState) {
     // agar state o'zgraganda yoki props o'zgarganda ishga tushadi
