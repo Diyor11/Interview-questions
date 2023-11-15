@@ -1,0 +1,136 @@
+1 Jsx nima ?
+
+JSX (JavaScript XML) kengaytma sintaksisi boʻlib, foydalanuvchi interfeyslarini yaratish uchun mashhur JavaScript kutubxonasi boʻlgan React-da qoʻllaniladi. JSX ishlab chiquvchilarga to'g'ridan-to'g'ri JavaScript-da HTML-ga o'xshash kod yozish imkonini beradi, bu JavaScript mantig'i va HTML belgilarini bitta faylga birlashtiradi.
+
+JSX sintaksisi HTMLga o'xshaydi, lekin u o'z-o'zidan JavaScript yoki HTML emas. Bu sintaksis kengaytmasi bo'lib, uni veb-brauzerda ishga tushirishdan oldin Babel kabi vositalar yordamida oddiy JavaScript-ga o'tkazish kerak.
+
+2 Reactda lyfecycle metodlari va ularni ketma ket ishlashi ?
+componentDidMount()
+componentDidUpdate()
+componentWillUnmount()
+
+3 componentDidMount va componentWillUnmount function componenetda qanday ishlatiladi ?
+
+useEffect(() => {
+  // componentDidMount bo'ladi
+}, [])
+
+useEffect(() => {
+  return () => {
+  // componentWillUnmount bo'ladi
+  }
+}, [])
+
+4 shouldComponentUpdate nima qanday vazifani bajaradi ?
+
+shouldComponentUpdate(nextProps, nextState) {
+    // agar state o'zgraganda yoki props o'zgarganda ishga tushadi
+    // hozirgi va olgingi props va state ni oldingi props va state bilan solishtiring
+    // agar bu funksiya true qaytarsa componenet render bo'ladi false qaytarsa yo'q
+
+    if (this.props.value !== nextProps.value) {
+      // Only update if the value prop has changed
+      return true;
+    }
+
+    if (this.state.count !== nextState.count) {
+      // Only update if the count state has changed
+      return true;
+    }
+
+    // By default, return false to prevent unnecessary re-renders
+    return false;
+  }
+
+5 bir vaqtni o'zida birdan 2ta  state o'zgarsa component necha martta render bo'ladi ?
+Javob: 1 martta.  React 18 verisyasida "batching" xusiyati qo'shilgan bu bir vaqtning o'zida bir nechta state o'garsa react baribir 1 martta render qiladi
+
+const [count, setCount] = useState(0);
+const [count2, setCount2] = useState(0);
+
+  const handleClick = () => {
+    setCount((prevCount) => prevCount + 1);
+    setCount2((prevCount) => prevCount + 1);
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>Increment</button>
+      <div>Count1: {count}</div>
+      <div>Count2: {count2}</div>
+    </div>
+  );
+
+6. React Context Api nima ?
+Javob: Conext api reactnig xusiyati u drop drilling qilmasdan malumotni bir nechta pasdagi componenetga bero oladi. Uning qiymatini componenet tree dagi istalgan component olishi mumkun
+
+7. Redux nima ?
+
+8. dispatch nima qabul qiladi ?
+Javob: obyekt unda type va payload bo'ladi type talab qilinadi payload ixtiyoriy. yoki action u ham natijada bu obyektni qytaradi
+
+dispatch({type: "incriment"})
+dispatch({type: "set_value", payload: 10})
+
+dispatch(() => {type: "incriment"})
+dispatch(() => {type: "set_value", payload: 10})
+
+9. dispatch ga asynxiron action berish mumkunmi ?
+Javob: yo'q. Async actionlarni ishlatish uchun redux-thunk yoki redux-saga ishlatilishi kerak 
+
+10. Redux toolkit nima ?
+
+11 Redux toolkit da asiyxron action lar qanday ishlatiladi buning uchun yordamchi kutubxona talab qilinadimi ?
+Javob: yo'q redux tookit da createAsyncThunk funksiyasi bor bu ishni bajaradi
+
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import api from 'api'; // Your API module or service
+
+// Create an async thunk
+const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
+  const response = await api.fetchUser(userId);
+  return response.data;
+});
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.loading = false;
+    });
+
+    builder.addCase(fetchUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+  },
+});
+
+12 Rtk-query nima va uning avzallilari nimada ?
+
+13 mutation va query ni farqi nimada ?
+
+14 prepareHeader nima ?
+
+15. Rtk-query da fore refetching qanday ishlaydi ?
+
+birinchi biron bir query taglarga biriktiriladi
+providedTags: ['posts', 'users']
+
+keyin biron mutation ga invalidateTags popertys ga shu kerakli taglar beriladi ["posts"]
+
+
+
+
+
