@@ -68,7 +68,7 @@ Javob: Conext api reactnig xusiyati u drop drilling qilmasdan malumotni bir nech
 7. Redux nima ?
 
 8. dispatch nima qabul qiladi ?
-Javob: obyekt unda type va payload bo'ladi type talab qilinadi payload ixtiyoriy. yoki action u ham natijada bu obyektni qytaradi
+Javob: obyekt unda type va payload bo'ladi type talab qilinadi payload ixtiyoriy. yoki callback function u ham natijada bu obyektni qytaradi
 
 dispatch({type: "incriment"})
 dispatch({type: "set_value", payload: 10})
@@ -76,7 +76,7 @@ dispatch({type: "set_value", payload: 10})
 dispatch(() => {type: "incriment"})
 dispatch(() => {type: "set_value", payload: 10})
 
-9. dispatch ga asynxiron action berish mumkunmi ?
+9. dispatch ga asynxiron function berish mumkunmi ?
 Javob: yo'q. Async actionlarni ishlatish uchun redux-thunk yoki redux-saga ishlatilishi kerak 
 
 10. Redux toolkit nima ?
